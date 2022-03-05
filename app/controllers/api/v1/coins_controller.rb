@@ -1,19 +1,25 @@
-class API::V1::CoinsController < ApplicationController
+class Api::V1::CoinsController < ApplicationController
   before_action :authorized
 
   def index
-    
+    @coins = Coin.where(user: @user)
+    render json: @coins
   end
 
   def create
     @coin = Coin.new(coin_params)
-    @coin.user = @user.id
+    @coin.user = @user
 
     if @coin.save
-      render json: @coin, status: :created, location: @coin
+      render json: @coin, status: :created
     else
       render json: @coin.errors, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @coin = Coin.find(params[:id])
+    render json: @coin
   end
 
   def update

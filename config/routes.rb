@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resource :users, only: [:create]
-      resource :coins
+      resources :coins, only: [:index, :show, :create, :destroy]
       post "/login", to: "users#login"
       get "/auto_login", to: "users#auto_login"
     end
