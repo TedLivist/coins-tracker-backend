@@ -8,7 +8,8 @@ class Api::V1::UsersController < ApplicationController
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}
     else
-      render json: {error: "Invalid username"}
+      @errors = @user.errors.full_messages
+      render json: {error: @errors}
     end
   end
 
