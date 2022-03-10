@@ -25,11 +25,17 @@ class Api::V1::CoinsController < ApplicationController
   def update
     @coin = Coin.find(params[:id])
 
-    if @coin.update(coin_params)
-      render json: @coin
+    if @user == @coin.user
+      if @coin.update(coin_params)
+        render json: @coin
+      else
+        render json: @coin.errors, status: :unprocessable_entity
+      end
     else
-      render json: @coin.errors, status: :unprocessable_entity
+      render json: {error: 'Unauthorized user'}
     end
+
+    
   end
 
   def destroy
