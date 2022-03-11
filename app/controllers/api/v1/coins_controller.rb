@@ -40,7 +40,12 @@ class Api::V1::CoinsController < ApplicationController
 
   def destroy
     @coin = Coin.find(params[:id])
-    @coin.destroy
+
+    if @user == @coin.user
+      @coin.destroy
+    else
+      render json: {error: 'Unauthorized action'}
+    end
   end
 
 
