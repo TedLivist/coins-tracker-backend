@@ -43,6 +43,8 @@ class Api::V1::CoinsController < ApplicationController
 
     if @user == @coin.user
       @coin.destroy
+      @message = ['Coin untracked']
+      render json: {message: @message}
     else
       render json: {error: 'Unauthorized action'}
     end
