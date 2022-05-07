@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+      render json: {username: @user.username, token: token}
     else
       @errors = @user.errors.full_messages
       render json: {error: @errors}
@@ -19,9 +19,10 @@ class Api::V1::UsersController < ApplicationController
 
     if @user
       token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+      render json: {username: @user.username, token: token}
     else
-      render json: {error: "Invalid username"}
+      @error = ['Invalid username']
+      render json: {error: @error}
     end
   end
 

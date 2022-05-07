@@ -40,7 +40,14 @@ class Api::V1::CoinsController < ApplicationController
 
   def destroy
     @coin = Coin.find(params[:id])
-    @coin.destroy
+
+    if @user == @coin.user
+      @coin.destroy
+      @message = ['Coin untracked']
+      render json: {message: @message}
+    else
+      render json: {error: 'Unauthorized action'}
+    end
   end
 
 
