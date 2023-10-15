@@ -82,6 +82,8 @@ test:
 #
 production:
   <<: *default
-  database: coins_tracker_backend_production
-  username: coins_tracker_backend
-  password: <%= ENV['COINS_TRACKER_BACKEND_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # render cred:
+  # postgresql instance name: coins-tracker 
+  # database name: coins_tracker_21
+  # user: tedlivist
